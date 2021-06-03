@@ -1,32 +1,31 @@
-"use strict"
+"use strict";
 
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
+const express = require("express");
 const app = express();
-const BodyParser = require('body-parser');
-const usersRoute = require('./routes/users');
-const productRoute = require('./routes/products');
-const orderRoute = require('./routes/orders');
+const BodyParser = require("body-parser");
+const usersRoute = require("./routes/users");
+const productRoute = require("./routes/products");
+const orderRoute = require("./routes/orders");
 const port = process.env.PORT;
 
 //database connection
-require('./db/db')
-
+require("./db/db");
 
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
-app.get('/', function(req, res){
-	res.status(200).send({ message: "Loan App"});
+app.get("/", function (req, res) {
+  res.status(200).send({ message: "E-commerce API" });
 });
 
 //public route
-app.use('/user', usersRoute);
+app.use("/user", usersRoute);
 
 //private route
-app.use('/product', productRoute);
-app.use('/order', orderRoute);
+app.use("/product", productRoute);
+app.use("/order", orderRoute);
 
 // express doesn't consider not found 404 as an error so we need to handle 404 explicitly
 // handle 404 error
@@ -44,8 +43,7 @@ app.use('/order', orderRoute);
 //     res.status(500).json({message: "Something looks wrong :( !!!"});
 // });
 
-
 app.listen(port, (err) => {
-	if(err) console.log(err);
-	else console.log("Server listening on port:", port);
-})
+  if (err) console.log(err);
+  else console.log("Server listening on port:", port);
+});
